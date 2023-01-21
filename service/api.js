@@ -1,17 +1,18 @@
 require("dotenv").config();
 const express = require("express");
 const jwt = require("express-jwt");
-const { displayStateMap, jwtAuthz } = require("express-jwt-aserto");
+const { displayStateMap, jwtAuthz } = require("@aserto/aserto-node");
 const jwksRsa = require("jwks-rsa");
 const cors = require("cors");
 const app = express();
 
 const authzOptions = {
-  authorizerServiceUrl: process.env.AUTHORIZER_SERVICE_URL,
-  policyId: process.env.POLICY_ID,
-  policyRoot: process.env.POLICY_ROOT,
-  authorizerApiKey: process.env.AUTHORIZER_API_KEY,
-  tenantId: process.env.TENANT_ID,
+  authorizerServiceUrl: process.env.ASERTO_AUTHORIZER_SERVICE_URL,
+  instanceName: process.env.ASERTO_POLICY_INSTANCE_NAME,
+  instanceLabel: process.env.ASERTO_POLICY_INSTANCE_LABEL,
+  policyRoot: process.env.ASERTO_POLICY_ROOT,
+  authorizerApiKey: process.env.ASERTO_AUTHORIZER_API_KEY,
+  tenantId: process.env.ASERTO_TENANT_ID,
 };
 
 //Aserto authorizer middleware function
@@ -35,13 +36,13 @@ const checkJwt = jwt({
 
 // Enable CORS
 app.use(cors());
-
+console.log(authzOptions)
 app.use(displayStateMap(authzOptions));
 
 // Protected API endpoint
 app.get("/api/protected", checkJwt, checkAuthz, function (req, res) {
   //send the response
-  res.json({ secretMessage: "Here you go, very sensitive information for" });
+  res.json({ secretMessage: "Here you go, very sensitive information for ya!" });
 });
 
 // Launch the API Server at localhost:8080

@@ -22,7 +22,7 @@ function App() {
 
         try {
           const res = await sensitiveDataResponse.json();
-          setMessage(res.secret)
+          setMessage(res.secretMessage)
         } catch (e) {
           //In case no access is given, the response will return 403 and not return a JSON response
           setMessage(sensitiveDataResponse.status)
