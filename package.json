@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aserto/aserto-react": "^0.1.52",
+    "@aserto/aserto-react": "^0.2.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
@@ -15,6 +15,7 @@
     "web-vitals": "^2.1.0"
   },
   "scripts": {
+    "install:all": "yarn install && cd ./service && yarn install",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
